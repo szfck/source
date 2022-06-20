@@ -56,16 +56,20 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 ```
 
 ## tmux
-from https://github.com/gpakosz/.tmux
-在.tmux.conf.local末尾添加
 ```
-# move status line to top
-#set -g status-position top
-tmux_conf_theme_status_left='  #S | '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized}, %R , %d %b |'
-tmux_conf_theme_status_left_bg='#00afff,#00afff,#00afff'
+git clone https://github.com/gpakosz/.tmux.git
+ln -s -f .tmux/.tmux.conf
+cp .tmux/.tmux.conf.local .
+
+# append to .tmux.conf.local
 set-option -g repeat-time 1
-set-option -g status-position top
+set-option -g default-shell /usr/bin/zsh
+
+tmux_conf_theme_status_left='  #S | '                                                                                                             
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized}, %R , %d %b |' 
+tmux_conf_theme_status_left_bg='#00afff,#00afff,#00afff' 
+set-option -g status-position bottom  
+set-option -g repeat-time 1  
 set-window-option -g mode-keys vi
 ```
 
