@@ -42,10 +42,11 @@ do_fork:
 		 * dup_mmap不但复制了线性区和页表，也设置了mm的一些属性.
 		 * 它也会改变父进程的私有，可写的页为只读的，以使写时复制机制生效。
 		 */
-		dup_mmap:
-			for (mpnt = oldmm->mmap; mpnt; mpnt = mpnt->vm_next){
-				tmp = vm_area_dup(mpnt);
-				if (!(tmp->vm_flags & VM_WIPEONFORK))
+		dup_mmap: // 主要做了两件事情：复制父进程所有vma到子进程中以及所有表项
+			for (mpnt = oldmm->mmap; mpnt; mpnt = mpnt->vm_next){ // 遍历该进程所有vma
+				tmp = vm_area_dup(mpnt); // 将新的tmp vma插入到子进程中
+				if (!(tmp->vm_flags & VM_WIPEONFORK)) 
+					// 子进程可以继承该vma表项，则会调用copy_page_range进行page table 复制处理
 					retval = copy_page_range(mm, oldmm, mpnt, tmp);
 			}
 
