@@ -96,7 +96,7 @@ copy_mm()中检查clone_flags中是否有CLONE_VM标志，
 
 在该函数中判断页是否支持写时复制，若支持就给其添加写保护，在写操作发生时，发生写保护错误，从而为子进程新分配一块内存。
 
-![](/images/linux_thread/5page.png)
+![](/images/linux_thread/5-level-page.png)
 ```
 static inline void // 拷贝一个页表条目
 copy_one_pte(struct mm_struct *dst_mm,  struct mm_struct *src_mm,
