@@ -98,7 +98,7 @@ copy_mm()中检查clone_flags中是否有CLONE_VM标志，
 
 ![](/images/linux_thread/5page.png)
 ```
-static inline void
+static inline void // 拷贝一个页表条目
 copy_one_pte(struct mm_struct *dst_mm,  struct mm_struct *src_mm,
 		pte_t *dst_pte, pte_t *src_pte, unsigned long vm_flags,
 		unsigned long addr)
