@@ -96,12 +96,12 @@ copy_mm()中检查clone_flags中是否有CLONE_VM标志，
 
 在该函数中判断页是否支持写时复制，若支持就给其添加写保护，在写操作发生时，发生写保护错误，从而为子进程新分配一块内存。
 
-copy_page_range
-copy_p4d_range(): 复制4级页目录
-copy_pud_range: 复制出一个up页目录
-copy_pmd_range: 复制出一个mid目录
-copy_pte_range: 复制一个页表
-copy_one_pte: 拷贝一个页表条目
+- copy_page_range
+- copy_p4d_range(): 复制4级页目录
+- copy_pud_range: 复制出一个up页目录
+- copy_pmd_range: 复制出一个mid目录
+- copy_pte_range: 复制一个页表
+- copy_one_pte: 拷贝一个页表条目
 
 ![](/images/linux_thread/5-level-page.png)
 ```
