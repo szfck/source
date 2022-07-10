@@ -92,10 +92,11 @@ copy_mm()中检查clone_flags中是否有CLONE_VM标志，
 - 否则，就是fork创建进程，从而调用dup_mm()函数为子进程分配一个新的mm_struct结构体。
 
 	- 使用dup_mmap()函数为子进程拷贝父进程地址空间，其中调用copy_page_range()函数进行页表的拷贝，由于linux中采用四级分页机制，分别是pgd、pud、pmd、pte，因而依次对其进行拷贝，最终在拷贝pte的函数copy_pte_range中调用copy_one_page函数实现真正的写时复制。
+	- (update: The new level, called the "P4D", is inserted between the PGD and the PUD, The patches adding this level were merged for 4.11-rc2) https://lwn.net/Articles/717293/
 
 在该函数中判断页是否支持写时复制，若支持就给其添加写保护，在写操作发生时，发生写保护错误，从而为子进程新分配一块内存。
 
-![](/images/linux_thread/4page.png)
+![](/images/linux_thread/5page.png)
 ```
 static inline void
 copy_one_pte(struct mm_struct *dst_mm,  struct mm_struct *src_mm,
